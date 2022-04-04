@@ -12,7 +12,6 @@ public class Solution11 {
 	        int tempR=0;
 	        int disL=0;
 	        int disR=0;
-	        int[][] num = new int[4][3];
 	        
 	        System.out.println("numbers[] : "+Arrays.toString(numbers));
 	        
@@ -27,110 +26,60 @@ public class Solution11 {
 	        		tempR=numbers[i];
 	        		System.out.println("tempR: "+tempR);
 	        		System.out.println("answer: "+answer);
-	        	}else if(numbers[i]==2){
-	        		num = changeNum();
-	        		for(int j=0; j<4; j++) {
-	        			for(int k=0; k<3; k++) {
-	        				if(num[j][k] == tempL) {
-	        					disL = getDist(0, 1, j, k);
-	        					
-	        				}if(num[j][k] == tempR) {
-	        					disR = getDist(0, 1, j, k);
-	        				}  
-	        			}
-	        		}
-	        	}else if(numbers[i]==5) {
-	        		num = changeNum();
-	        		for(int j=0; j<4; j++) {
-	        			for(int k=0; k<3; k++) {
-	        				if(num[j][k] == tempL) {
-	        					disL = getDist(1, 1, j, k);
-	        					
-	        				}if(num[j][k] == tempR) {
-	        					disR = getDist(1, 1, j, k);
-	        				}  
-	        			}
-	        		}
-	        	}else if(numbers[i]==8) {
-	        		num = changeNum();
-	        		for(int j=0; j<4; j++) {
-	        			for(int k=0; k<3; k++) {
-	        				if(num[j][k] == tempL) {
-	        					disL = getDist(2, 1, j, k);
-	        					
-	        				}if(num[j][k] == tempR) {
-	        					disR = getDist(2, 1, j, k);
-	        				}  
-	        			}
-	        		}
-	        	}else if(numbers[i]==0) {
-	        		num = changeNum();
-	        		for(int j=0; j<4; j++) {
-	        			for(int k=0; k<3; k++) {
-	        				if(num[j][k] == tempL) {
-	        					disL = getDist(3, 1, j, k);
-	        					
-	        				}if(num[j][k] == tempR) {
-	        					disR = getDist(3, 1, j, k);
-	        				}  
-	        			}
-	        		}
-	        	}
-
+	        	}else if(numbers[i]==2 || numbers[i]==5 || numbers[i]==8 || numbers[i]==0){
+	        		disL = getDist(tempL, numbers[i]);
+	        		disR = getDist(tempR, numbers[i]);	        		
 	        		if(disL > disR) {
-	        			answer += "L";
-	        			tempL=numbers[i];
-	        			System.out.println("tempL: "+tempL);
-	        			System.out.println("answer: "+answer);
-	        		}else if(disL < disR){
 	        			answer += "R";
 	        			tempR=numbers[i];
 	        			System.out.println("tempR: "+tempR);
-	        			System.out.println("answer: "+answer);
+		        		System.out.println("answer: "+answer);
+	        		}else if(disL < disR){
+	        			answer += "L";
+	        			tempL=numbers[i];
+	        			System.out.println("tempL: "+tempL);
+		        		System.out.println("answer: "+answer);
 	        		}else {
 	        			if(hand=="left") {
 	        				answer += "L";
-	        				tempL=numbers[i];
-	        				System.out.println("tempL: "+tempL);
-	        				System.out.println("answer: "+answer);
+		        			tempL=numbers[i];
+		        			System.out.println("tempL: "+tempL);
+			        		System.out.println("answer: "+answer);
 	        			}else if(hand=="right"){
 	        				answer += "R";
-	        				tempR=numbers[i];
-	        				System.out.println("tempR: "+tempR);
-	        				System.out.println("answer: "+answer);
+		        			tempR=numbers[i];
+		        			System.out.println("tempR: "+tempR);
+			        		System.out.println("answer: "+answer);
 	        			}
 	        		}
+
+	        	}
 	        }
 	        return answer;
 	    }
 	 
 	 //거리 구하기
-	 public int getDist(int a, int b,int c,int d) {
-		int distance = (Math.abs(a)-Math.abs(c))+(Math.abs(b)-Math.abs(d));
+	 public int getDist(int idx, int num) {
+		 idx = (idx==0) ? 11 : idx;
+		 num = (num==0) ? 11 : num;
+		 int a = (idx-1)/3;
+		 int b = (idx-1)%3;
+		 int c = num/3;
+		 int d = 1;
+		 
+		int distance = (Math.abs(a-c))+(Math.abs(b-d));
 		System.out.println("distance : "+distance);
 		 return distance;
 	 }
 	 
-	 //키패드 좌표 만들기
-	 public int[][] changeNum() {
-		 int[][] nums = new int[4][3];
-		 for(int i=0; i<4;i++) {
-			 for(int j=0;j<3;j++) {
-				 nums[i][j]=(3*i)+(1+j*1);
-			 }
-		 }
-		 nums[3][0]=0;
-		 nums[3][1]=0;
-		 nums[3][2]=0;
-		 //System.out.println("nums[][] : "+Arrays.deepToString(nums));
-		 return nums;
-	 }
+
+	 
 	 
 	 public static void main(String[] args) {
 		Solution11 sol = new Solution11();
 		//int[] numbers = {1,3,4,5,8,2,1,4,5,9,5};
-		int[] numbers = {1,2,3,4,5,6,7,8,9,0};
-		//int[] numbers = {7,0,8,2,8,3,1,5,7,6,2};
+		//int[] numbers = {1,2,3,4,5,6,7,8,9,0};
+		int[] numbers = {7,0,8,2,8,3,1,5,7,6,2};
 		//String hand = "right";
 		String hand = "left";
 		String ans = sol.solution(numbers, hand);
