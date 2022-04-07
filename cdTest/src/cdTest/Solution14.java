@@ -6,7 +6,6 @@ package cdTest;
 public class Solution14 {
 	public int solution(int left, int right) {
 		int cnt=0;
-		int[] temp= new int[right-left+1];
         int answer = 0;
         int j=0;
         for(int i=left; i<=right; i++) {
