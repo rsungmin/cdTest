@@ -8,14 +8,10 @@ public class Solution21 {
         String answer = "";
         String num = phone_number.substring(phone_number.length()-4, phone_number.length());
         
-        System.out.println("num" +num);
-        
         for(int i=0;i<phone_number.length()-4;i++) {
         	answer+="*";
-        	System.out.println("ans "+answer);
         }
         answer+=num;
-       
         return answer;
     }
 	
